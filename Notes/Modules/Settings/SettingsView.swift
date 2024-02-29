@@ -26,6 +26,7 @@ class SettingsView: UIViewController {
     private lazy var settingTableView: UITableView = {
         let view = UITableView()
         view.rowHeight = 55
+        view.isScrollEnabled = false
         view.layer.cornerRadius = 10
         view.separatorInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
         view.register(NoteTableViewCell.self, forCellReuseIdentifier: NoteTableViewCell.reuseID)
@@ -66,7 +67,7 @@ private extension SettingsView {
         settingTableView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(10)
             make.leading.trailing.equalToSuperview().inset(10)
-            make.height.equalTo(200)
+            make.height.equalTo(165)
         }
     }
 }
