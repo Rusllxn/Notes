@@ -18,7 +18,7 @@ class HomeView: UIViewController {
     private var controller: HomeControllerProtocol?
     
     private var notes: [String] = []
-        
+    
     // MARK: Private Property
     private lazy var noteSearchBar: UISearchBar = {
         let view = UISearchBar()
@@ -29,7 +29,7 @@ class HomeView: UIViewController {
     private lazy var titleLabel: UILabel = {
         let view = UILabel()
         view.text = "Notes"
-        view.font = UIFont.systemFont(ofSize: 16)
+        view.textColor = .secondaryLabel
         return view
     }()
     
@@ -51,11 +51,20 @@ class HomeView: UIViewController {
     }()
     
     private var button = UIButton()
-        
+    
     // MARK: - Override Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if UserDefaults.standard.bool(forKey: "theme") == true {
+            overrideUserInterfaceStyle = .dark
+        } else {
+            overrideUserInterfaceStyle = .light
+        }
     }
     
 }
@@ -82,9 +91,9 @@ private extension HomeView {
     }
     
     private func setupNavigationItem() {
-        navigationController?.navigationBar.tintColor = .black
+        
         navigationItem.title = "Home"
-        let rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "settings"), style: .plain, target: self, action: #selector(settingsButtonTapped))
+        let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(settingsButtonTapped))
         navigationItem.rightBarButtonItem = rightBarButtonItem
     }
     
@@ -98,7 +107,7 @@ private extension HomeView {
     func setupLayout() {
         noteSearchBar.snp.makeConstraints {make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(15)
-            make.leading.trailing.equalToSuperview().inset(16)
+            make.horizontalEdges.equalToSuperview().inset(16)
             make.height.equalTo(36)
         }
         
@@ -144,5 +153,15 @@ extension HomeView: HomeViewProtocol {
     func successNotes(notes: [String]) {
         self.notes = notes
         notesCollectionView.reloadData()
+    }
+}
+
+extension HomeView {
+    func updateTheme() {
+        if UserDefaults.standard.bool(forKey: "DarkModeEnabled") {
+            overrideUserInterfaceStyle = .dark
+        } else {
+            overrideUserInterfaceStyle = .light
+        }
     }
 }

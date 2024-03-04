@@ -13,11 +13,11 @@ protocol SettingsControllerProtocol {
     
     func onSuccessTitles(titles: [String])
     func onSuccessImages(images: [UIImage])
-        
+    
 }
 
 class SettingsController: SettingsControllerProtocol {
-   
+    
     private var view: SettingsViewProtocol?
     private var model: SettingsModelProtocol?
     

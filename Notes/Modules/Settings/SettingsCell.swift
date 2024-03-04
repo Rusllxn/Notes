@@ -8,35 +8,58 @@
 import UIKit
 import SnapKit
 
+enum SetingsCellType {
+    case none
+    case withSwitch
+    case wothButton
+}
+
+struct Settings {
+    var leftImage: String
+    var title: String
+    var type: SetingsCellType
+    var description: String
+}
+
+protocol SettingsCellDelegate: AnyObject {
+    func didSwitchOn(isOn: Bool)
+}
+
 class NoteTableViewCell: UITableViewCell {
     
     static let reuseID = "note_cell"
     
+    weak var delegate: SettingsCellDelegate?
+    
+    var switchHandler: ((Bool) -> ())?
+    
     private lazy var settingImageView: UIImageView = {
         let view = UIImageView()
+        view.tintColor = UIColor.label
         return view
     }()
     
     private lazy var settingTitleLabel: UILabel = {
         let view = UILabel()
-        view.font = UIFont.preferredFont(forTextStyle: .body)
         view.textColor = UIColor.label
         return view
     }()
     
-    var button: UIButton = {
+    lazy var button: UIButton = {
         let view = UIButton(type: .system)
-        view.setImage(UIImage(named: "Chevron"), for: .normal)
+        view.setImage(UIImage(systemName: "chevron.right"), for: .normal)
         view.setTitle("Русский", for: .normal)
         view.setTitleColor(.secondaryLabel, for: .normal)
-        view.tintColor = .black
+        view.tintColor = UIColor.label
         view.semanticContentAttribute = .forceRightToLeft
         view.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -15)
         return view
     }()
-
-    var switchButton: UISwitch = {
+    
+    lazy var switchButton: UISwitch = {
         let view = UISwitch()
+        view.isOn = UserDefaults.standard.bool(forKey: "theme")
+        view.addTarget(self, action: #selector(switchValueChanged), for: .valueChanged)
         return view
     }()
     
@@ -53,6 +76,26 @@ class NoteTableViewCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc func switchValueChanged() {
+        delegate?.didSwitchOn(isOn: switchButton.isOn)
+    }
+    
+    func setup(settings: Settings) {
+        settingImageView.image = UIImage(systemName: settings.leftImage)
+        settingTitleLabel.text = settings.title
+        switch settings.type {
+        case .none:
+            button.isHidden = true
+            switchButton.isHidden = true
+        case .withSwitch:
+            button.isHidden = true
+        case .wothButton:
+            switchButton.isHidden = true
+            button.setTitle(settings.description, for: .normal)
+            
+        }
     }
     
     override func prepareForReuse() {

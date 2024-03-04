@@ -12,7 +12,7 @@ protocol HomeModelProtocol {
 }
 
 class HomeModel: HomeModelProtocol {
-   
+    
     private let controller: HomeControllerProtocol?
     
     init(controller: HomeControllerProtocol) {

@@ -40,6 +40,15 @@ class SettingsView: UIViewController {
         super.viewDidLoad()
         setupView()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if UserDefaults.standard.bool(forKey: "theme") == true {
+            overrideUserInterfaceStyle = .dark
+        } else {
+            overrideUserInterfaceStyle = .light
+        }
+    }
 }
 
 // MARK: - Setting Views
@@ -81,15 +90,19 @@ extension SettingsView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: NoteTableViewCell.reuseID, for: indexPath) as! NoteTableViewCell
         if indexPath.row == 0 {
-            cell.contentView.addSubview(cell.button)
+            cell.button.isHidden = false
         } else {
-            cell.button.removeFromSuperview()
+            cell.button.isHidden = true
         }
         if indexPath.row == 1 {
-            cell.contentView.addSubview(cell.switchButton)
+            cell.switchButton.isHidden = false
         } else {
-            cell.switchButton.removeFromSuperview()
+            cell.switchButton.isHidden = true
         }
+        cell.switchHandler = { isOn in
+            print(isOn)
+        }
+        cell.delegate = self
         cell.setup(title: titles[indexPath.row])
         cell.setup(image: images[indexPath.row])
         return cell
@@ -106,5 +119,16 @@ extension SettingsView: SettingsViewProtocol {
     func successImages(images: [UIImage]) {
         self.images = images
         settingTableView.reloadData()
+    }
+}
+
+extension SettingsView: SettingsCellDelegate {
+    func didSwitchOn(isOn: Bool) {
+        UserDefaults.standard.set(isOn, forKey: "theme")
+        if isOn {
+            overrideUserInterfaceStyle = .dark
+        } else {
+            overrideUserInterfaceStyle = .light
+        }
     }
 }

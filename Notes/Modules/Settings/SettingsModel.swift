@@ -20,7 +20,7 @@ class SettingsModel: SettingsModelProtocol {
         self.controller = controller
     }
     
-    private let images : [UIImage] = [UIImage(named: "language")!, UIImage(named: "moon")!, UIImage(named: "trash")!
+    private let images : [UIImage] = [UIImage(systemName: "globe")!, UIImage(systemName: "moon")!, UIImage(systemName: "trash")!
     ]
     private let titles: [String] = ["Язык", "Темная тема", "Очистить данные"]
     
