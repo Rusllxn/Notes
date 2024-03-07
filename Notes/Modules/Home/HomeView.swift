@@ -16,13 +16,14 @@ protocol HomeViewProtocol {
 class HomeView: UIViewController {
     
     private var controller: HomeControllerProtocol?
-    
     private var notes: [String] = []
+    private var filteredNotes: [String] = []
     
     // MARK: Private Property
     private lazy var noteSearchBar: UISearchBar = {
         let view = UISearchBar()
         view.placeholder = "Search"
+        view.searchTextField.addTarget(self, action: #selector(noteSearchBarEditingChanged), for: .editingChanged)
         return view
     }()
     
@@ -47,6 +48,7 @@ class HomeView: UIViewController {
     private lazy var addButton: UIButton = {
         let view = UIButton()
         view.setImage(UIImage(named: "note.add"), for: .normal)
+        view.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
         return view
     }()
     
@@ -100,6 +102,25 @@ private extension HomeView {
     
     @objc func settingsButtonTapped() {
         navigationController?.pushViewController(SettingsView(), animated: true)
+    }
+    
+    @objc func noteSearchBarEditingChanged() {
+        if let text = noteSearchBar.text {
+            filteredNotes = []
+            if text.isEmpty {
+                filteredNotes = notes
+            } else {
+                filteredNotes = notes.filter({ note in
+                    note.uppercased().contains(text.uppercased())
+                })
+            }
+            
+            notesCollectionView.reloadData()
+        }
+    }
+    
+    @objc func addButtonTapped() {
+        navigationController?.pushViewController(NewNoteView(), animated: true)
     }
 }
 
