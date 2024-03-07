@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8306FB782B974F260082AAEF /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8306FB772B974F260082AAEF /* OnboardingView.swift */; };
+		8306FB7A2B9752FD0082AAEF /* OnBoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8306FB792B9752FD0082AAEF /* OnBoardCell.swift */; };
 		8339C0732B893D8C0087C62A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8339C0722B893D8C0087C62A /* SettingsView.swift */; };
 		8339C0772B8982470087C62A /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8339C0762B8982470087C62A /* SettingsModel.swift */; };
 		8339C0792B89825E0087C62A /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8339C0782B89825E0087C62A /* SettingsCell.swift */; };
@@ -23,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8306FB772B974F260082AAEF /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		8306FB792B9752FD0082AAEF /* OnBoardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardCell.swift; sourceTree = "<group>"; };
 		8339C0722B893D8C0087C62A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		8339C0762B8982470087C62A /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
 		8339C0782B89825E0087C62A /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
@@ -51,6 +55,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8306FB742B974ECA0082AAEF /* OnBoarding */ = {
+			isa = PBXGroup;
+			children = (
+				8306FB772B974F260082AAEF /* OnboardingView.swift */,
+				8306FB792B9752FD0082AAEF /* OnBoardCell.swift */,
+			);
+			path = OnBoarding;
+			sourceTree = "<group>";
+		};
 		83E4516A2B863F680022F7A9 = {
 			isa = PBXGroup;
 			children = (
@@ -91,6 +104,7 @@
 		83E4518F2B864A4A0022F7A9 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				8306FB742B974ECA0082AAEF /* OnBoarding */,
 				83EE589A2B8E296F0041A350 /* Settings */,
 				83EE58992B8E294D0041A350 /* Home */,
 			);
@@ -200,9 +214,11 @@
 				83E4517B2B863F680022F7A9 /* HomeView.swift in Sources */,
 				83E451772B863F680022F7A9 /* AppDelegate.swift in Sources */,
 				8339C0772B8982470087C62A /* SettingsModel.swift in Sources */,
+				8306FB782B974F260082AAEF /* OnboardingView.swift in Sources */,
 				839A9A7A2B907E9A00DC3AFD /* HomeController.swift in Sources */,
 				8339C0792B89825E0087C62A /* SettingsCell.swift in Sources */,
 				839A9A782B907E5900DC3AFD /* HomeCell.swift in Sources */,
+				8306FB7A2B9752FD0082AAEF /* OnBoardCell.swift in Sources */,
 				839A9A7C2B907EAA00DC3AFD /* HomeModel.swift in Sources */,
 				83E451792B863F680022F7A9 /* SceneDelegate.swift in Sources */,
 			);

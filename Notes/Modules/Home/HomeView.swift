@@ -60,6 +60,7 @@ class HomeView: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationItem.hidesBackButton = true
         if UserDefaults.standard.bool(forKey: "theme") == true {
             overrideUserInterfaceStyle = .dark
         } else {
@@ -153,15 +154,5 @@ extension HomeView: HomeViewProtocol {
     func successNotes(notes: [String]) {
         self.notes = notes
         notesCollectionView.reloadData()
-    }
-}
-
-extension HomeView {
-    func updateTheme() {
-        if UserDefaults.standard.bool(forKey: "DarkModeEnabled") {
-            overrideUserInterfaceStyle = .dark
-        } else {
-            overrideUserInterfaceStyle = .light
-        }
     }
 }

@@ -12,7 +12,7 @@ class NoteCollectionViewCell: UICollectionViewCell {
     
     static var reuseID = "note_cell"
     
-    let colors : [UIColor] = [.systemPink, .systemBlue, .systemOrange, .systemGreen, .systemRed, .systemTeal]
+    let colors : [UIColor] = [.systemPink, .systemBrown, .systemPurple, .systemIndigo, .systemBlue, .systemOrange, .systemGreen, .systemRed, .systemTeal]
     
     private lazy var titleLabel: UILabel = {
         let view = UILabel()
