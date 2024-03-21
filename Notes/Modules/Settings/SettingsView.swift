@@ -60,6 +60,7 @@ private extension SettingsView {
         controller = SettingsController(view: self)
         controller?.onGetTitles()
         controller?.onGetImages()
+        navigationItem.title = "Settings"
     }
 }
 

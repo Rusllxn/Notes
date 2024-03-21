@@ -10,6 +10,10 @@ import SnapKit
 
 class NewNoteView: UIViewController, UITextViewDelegate {
     
+    private let coreDataServices = CoreDataService.shared
+    
+    var note: Note?
+    
     private lazy var noteTF: UITextField = {
         let view = UITextField()
         view.placeholder = "Title"
@@ -47,6 +51,7 @@ class NewNoteView: UIViewController, UITextViewDelegate {
         view.backgroundColor = .systemGray
         view.layer.cornerRadius = 15
         view.isEnabled = false
+        view.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
         return view
     }()
     
@@ -56,6 +61,9 @@ class NewNoteView: UIViewController, UITextViewDelegate {
         setupLayout()
         noteTF.addTarget(self, action: #selector(textFieldDidEndEditing(_:)), for: .editingDidEnd)
         noteTextView.delegate = self
+        guard let note = note else { return }
+        noteTF.text = note.title
+        noteTextView.text = note.desc
     }
     
     func setupLayout() {
@@ -88,11 +96,18 @@ class NewNoteView: UIViewController, UITextViewDelegate {
         UIPasteboard.general.string = textToCopy
     }
     
-    @objc private func textFieldDidChange(_ textField: UITextField) {
-        updateSaveButtonState()
+    @objc private func saveButtonTapped() {
+        let id = UUID().uuidString
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let dateString = dateFormatter.string(from: date)
+        
+        coreDataServices.addNote(id: id, title: noteTF.text ?? "", description: noteTextView.text, date: dateString)
+        navigationController?.pushViewController(HomeView(), animated: true)
     }
     
-    func textViewDidChange(_ textView: UITextView) {
+    @objc private func textFieldDidChange(_ textField: UITextField) {
         updateSaveButtonState()
     }
     

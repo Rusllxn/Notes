@@ -9,15 +9,15 @@ import UIKit
 import SnapKit
 
 protocol HomeViewProtocol {
-    func successNotes(notes: [String])
+    func successNotes(notes: [Note])
 }
 
 // MARK: - HomeView
 class HomeView: UIViewController {
     
     private var controller: HomeControllerProtocol?
-    private var notes: [String] = []
-    private var filteredNotes: [String] = []
+    private var notes: [Note] = []
+    private var filteredNotes: [Note] = []
     
     // MARK: Private Property
     private lazy var noteSearchBar: UISearchBar = {
@@ -68,6 +68,7 @@ class HomeView: UIViewController {
         } else {
             overrideUserInterfaceStyle = .light
         }
+        controller?.onGetNotes()
     }
     
 }
@@ -80,7 +81,6 @@ private extension HomeView {
         setupLayout()
         setupNavigationItem()
         controller = HomeController(view: self)
-        controller?.onGetNotes()
     }
 }
 
@@ -108,14 +108,14 @@ private extension HomeView {
         if let text = noteSearchBar.text {
             filteredNotes = []
             if text.isEmpty {
-                filteredNotes = notes
+                addButton.backgroundColor = .lightGray
+                addButton.isEnabled = false
             } else {
-                filteredNotes = notes.filter({ note in
-                    note.uppercased().contains(text.uppercased())
-                })
+                addButton.backgroundColor = .red
+                addButton.isEnabled = true
             }
             
-            notesCollectionView.reloadData()
+            //            notesCollectionView.reloadData()
         }
     }
     
@@ -141,11 +141,11 @@ private extension HomeView {
         notesCollectionView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(30)
             make.leading.trailing.equalToSuperview().inset(24)
-            make.bottom.equalTo(addButton.snp.top)
+            make.bottom.equalTo(view.safeAreaInsets.bottom)
         }
         
         addButton.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-100)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-60)
             make.centerX.equalToSuperview()
             make.height.width.equalTo(42)
         }
@@ -160,7 +160,7 @@ extension HomeView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NoteCollectionViewCell.reuseID, for: indexPath) as! NoteCollectionViewCell
-        cell.setup(title: notes[indexPath.row])
+        cell.setup(title: notes[indexPath.row].title ?? "")
         return cell
     }
 }
@@ -169,11 +169,18 @@ extension HomeView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: (collectionView.frame.width - 12) / 2, height: 100)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let noteView = NewNoteView()
+        noteView.note = notes[indexPath.row]
+        navigationController?.pushViewController(noteView, animated: true)
+    }
 }
 
 extension HomeView: HomeViewProtocol {
-    func successNotes(notes: [String]) {
+    func successNotes(notes: [Note]) {
         self.notes = notes
+        self.filteredNotes = notes
         notesCollectionView.reloadData()
     }
 }
