@@ -51,6 +51,18 @@ class OnBoardCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setup(title: String) {
+        titleLabel.text = title
+    }
+    
+    func setup(subtitle: String) {
+        subtitleLabel.text = subtitle
+    }
+    
+    func setup(image: UIImage) {
+        imageView.image = image
+    }
+    
     private func setupLayout() {
         contentView.addSubview(stackView)
         stackView.addArrangedSubview(imageView)

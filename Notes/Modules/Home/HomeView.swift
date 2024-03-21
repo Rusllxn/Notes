@@ -62,15 +62,21 @@ class HomeView: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationItem.hidesBackButton = true
-        if UserDefaults.standard.bool(forKey: "theme") == true {
-            overrideUserInterfaceStyle = .dark
-        } else {
-            overrideUserInterfaceStyle = .light
-        }
+        updateNavigationBarAppearance()
         controller?.onGetNotes()
     }
     
+    private func updateNavigationBarAppearance() {
+        if UserDefaults.standard.bool(forKey: "theme") == true {
+            overrideUserInterfaceStyle = .dark
+            navigationController?.navigationBar.barTintColor = .black
+            navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        } else {
+            overrideUserInterfaceStyle = .light
+            navigationController?.navigationBar.barTintColor = .white
+            navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        }
+    }
 }
 
 // MARK: - Setting Views
@@ -94,10 +100,10 @@ private extension HomeView {
     }
     
     private func setupNavigationItem() {
-        
-        navigationItem.title = "Home"
         let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(settingsButtonTapped))
         navigationItem.rightBarButtonItem = rightBarButtonItem
+        
+        navigationItem.title = "Home"
     }
     
     @objc func settingsButtonTapped() {
@@ -105,22 +111,11 @@ private extension HomeView {
     }
     
     @objc func noteSearchBarEditingChanged() {
-        if let text = noteSearchBar.text {
-            filteredNotes = []
-            if text.isEmpty {
-                addButton.backgroundColor = .lightGray
-                addButton.isEnabled = false
-            } else {
-                addButton.backgroundColor = .red
-                addButton.isEnabled = true
-            }
-            
-            //            notesCollectionView.reloadData()
-        }
+        // TODO: Придумать логику
     }
     
     @objc func addButtonTapped() {
-        navigationController?.pushViewController(NewNoteView(), animated: true)
+        navigationController?.pushViewController(NewNoteViewController(), animated: true)
     }
 }
 
@@ -171,7 +166,7 @@ extension HomeView: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let noteView = NewNoteView()
+        let noteView = NewNoteViewController()
         noteView.note = notes[indexPath.row]
         navigationController?.pushViewController(noteView, animated: true)
     }

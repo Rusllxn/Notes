@@ -8,21 +8,21 @@
 import UIKit
 import SnapKit
 
-struct OnBoardingItem {
-    let title: String
-    let subtitle: String
-    let imageName: String
+protocol OnboardingViewProtocol {
+    func successTitles(titles: [String])
+    func successSubtitles(subtitles: [String])
+    func successImages(images: [UIImage])
 }
 
 class OnboardingView: UIViewController {
     
     var currentPage = 0
     
-    let onBoardingData: [OnBoardingItem] = [
-        OnBoardingItem(title: "Welcome to The Note", subtitle: "Welcome to The Note – your new companion for tasks, goals, health – all in one place. Let's get started!", imageName: "logo1"),
-        OnBoardingItem(title: "Set Up Your Profile", subtitle: "Now that you're with us, let's get to know each other better. Fill out your profile, share your interests, and set your goals.", imageName: "logo2"),
-        OnBoardingItem(title: "Dive into The Note", subtitle: "You're fully equipped to dive into the world of The Note. Remember, we're here to assist you every step of the way. Ready to start? Let's go!", imageName: "logo3")
-    ]
+    private var controller: OnboardingControllerProtocol?
+    
+    private var titles: [String] = []
+    private var subtitles: [String] = []
+    private var images: [UIImage] = []
     
     private lazy var onBoardingCollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -68,6 +68,10 @@ class OnboardingView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
+        controller = OnboardingController(view: self)
+        controller?.onGetImages()
+        controller?.onGetSubtitles()
+        controller?.onGetTitles()
     }
     
     @objc func skipTapped() {
@@ -115,19 +119,22 @@ class OnboardingView: UIViewController {
 
 extension OnboardingView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return onBoardingData.count
+        return titles.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OnBoardCell.reuseID, for: indexPath) as! OnBoardCell
         
-        let data = onBoardingData[indexPath.item]
-        cell.imageView.image = UIImage(named: data.imageName)
-        cell.titleLabel.text = data.title
-        cell.subtitleLabel.text = data.subtitle
+        cell.setup(title: titles[indexPath.row])
+        cell.setup(subtitle: subtitles[indexPath.row])
+        cell.setup(image: images[indexPath.row])
         
         return cell
     }
+}
+
+extension OnboardingView: UICollectionViewDelegate {
+    
 }
 
 extension OnboardingView: UICollectionViewDelegateFlowLayout {
@@ -154,3 +161,21 @@ extension OnboardingView: UICollectionViewDelegateFlowLayout {
         }
     }
 }
+
+extension OnboardingView: OnboardingViewProtocol {
+    func successTitles(titles: [String]) {
+        self.titles = titles
+        onBoardingCollectionView.reloadData()
+    }
+    
+    func successSubtitles(subtitles: [String]) {
+        self.subtitles = subtitles
+        onBoardingCollectionView.reloadData()
+    }
+    
+    func successImages(images: [UIImage]) {
+        self.images = images
+        onBoardingCollectionView.reloadData()
+    }
+}
+
