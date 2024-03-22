@@ -82,6 +82,19 @@ class NoteTableViewCell: UITableViewCell {
         delegate?.didSwitchOn(isOn: switchButton.isOn)
     }
     
+    func setupButtonTitle(title: String, language: LanguageType) {
+            let localizedTitle: String
+            switch language {
+                case .kg:
+                    localizedTitle = "Кыргызча"
+                case .ru:
+                    localizedTitle = "Русский"
+                case .en:
+                    localizedTitle = "English"
+            }
+            button.setTitle(localizedTitle, for: .normal)
+        }
+    
     func setup(settings: Settings) {
         settingImageView.image = UIImage(systemName: settings.leftImage)
         settingTitleLabel.text = settings.title

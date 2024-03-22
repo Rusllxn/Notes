@@ -12,7 +12,7 @@ class NewNoteView: UIView {
     
     lazy var noteTF: UITextField = {
         let view = UITextField()
-        view.placeholder = "Title"
+        view.placeholder = NSLocalizedString("Title", comment: "")
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.black.cgColor
         view.layer.cornerRadius = 15
@@ -39,7 +39,7 @@ class NewNoteView: UIView {
     
     lazy var saveButton: UIButton = {
         let view = UIButton(type: .system)
-        view.setTitle("Сохранить", for: .normal)
+        view.setTitle(NSLocalizedString("Save", comment: ""), for: .normal)
         view.tintColor = .white
         view.backgroundColor = .systemGray
         view.layer.cornerRadius = 15

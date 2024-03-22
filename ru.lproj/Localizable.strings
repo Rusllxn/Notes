@@ -1,0 +1,17 @@
+/* 
+  Localizable.strings
+  Notes
+
+  Created by Руслан Канжарбеков on 22.03.2024.
+  
+*/
+
+"Settings" = "Настройки";
+"Choose Language" = "Выбрать язык";
+"Dark Theme" = "Темная тема";
+"Clear Data" = "Очистить данные";
+"Search" = "Поиск";
+"Notes" = "Заметки";
+"Home" = "Главный экран";
+"Title" = "Заголовок";
+"Save" = "Сохранить";

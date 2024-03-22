@@ -22,14 +22,14 @@ class HomeView: UIViewController {
     // MARK: Private Property
     private lazy var noteSearchBar: UISearchBar = {
         let view = UISearchBar()
-        view.placeholder = "Search"
+        view.placeholder = NSLocalizedString("Search", comment: "")
         view.searchTextField.addTarget(self, action: #selector(noteSearchBarEditingChanged), for: .editingChanged)
         return view
     }()
     
     private lazy var titleLabel: UILabel = {
         let view = UILabel()
-        view.text = "Notes"
+        view.text = NSLocalizedString("Notes", comment: "")
         view.textColor = .secondaryLabel
         return view
     }()
@@ -103,7 +103,7 @@ private extension HomeView {
         let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(settingsButtonTapped))
         navigationItem.rightBarButtonItem = rightBarButtonItem
         
-        navigationItem.title = "Home"
+        navigationItem.title = NSLocalizedString("Home", comment: "")
     }
     
     @objc func settingsButtonTapped() {

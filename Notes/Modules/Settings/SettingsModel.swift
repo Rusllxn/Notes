@@ -10,6 +10,7 @@ import UIKit
 protocol SettingsModelProtocol {
     func getTitles()
     func getImages()
+    func getCellTexts()
 }
 
 class SettingsModel: SettingsModelProtocol {
@@ -22,7 +23,7 @@ class SettingsModel: SettingsModelProtocol {
     
     private let images : [UIImage] = [UIImage(systemName: "globe")!, UIImage(systemName: "moon")!, UIImage(systemName: "trash")!
     ]
-    private let titles: [String] = ["Язык", "Темная тема", "Очистить данные"]
+    private let titles: [String] = ["Choose Language".localized(), "Dark Theme".localized(), "Clear Data".localized()]
     
     func getTitles() {
         controller?.onSuccessTitles(titles: titles)
@@ -31,4 +32,10 @@ class SettingsModel: SettingsModelProtocol {
     func getImages() {
         controller?.onSuccessImages(images: images)
     }
+    
+    func getCellTexts() {
+        let cellTexts: [String] = ["Choose Language".localized(), "Dark Theme".localized(), "Clear Data".localized()]
+        controller?.onSuccessCellTexts(cellTexts: cellTexts)
+    }
 }
+

@@ -12,7 +12,15 @@ struct Language {
     let flag: UIImage
 }
 
+protocol LanguageViewDelegate: AnyObject {
+    func didLanguageSelect(LanguageType: LanguageType)
+}
+
 class LanguageView: UIViewController {
+    
+    private var settingTableView = SettingsView()
+    
+    weak var delegate: LanguageViewDelegate?
     
     let languages: [Language] = [
         Language(name: "Кыргызча", flag: UIImage(named: "kyrgyz_flag")!),
@@ -25,8 +33,14 @@ class LanguageView: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Выберите язык"
-        label.textAlignment = .center
         return label
+    }()
+    
+    private let seperatorView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .secondarySystemBackground
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     private let tableView: UITableView = {
@@ -45,6 +59,7 @@ class LanguageView: UIViewController {
     
     private func setupUI() {
         view.addSubview(languageLabel)
+        view.addSubview(seperatorView)
         view.addSubview(tableView)
         
         NSLayoutConstraint.activate([
@@ -53,7 +68,12 @@ class LanguageView: UIViewController {
             languageLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             languageLabel.heightAnchor.constraint(equalToConstant: 30),
             
-            tableView.topAnchor.constraint(equalTo: languageLabel.bottomAnchor, constant: 20),
+            seperatorView.topAnchor.constraint(equalTo: languageLabel.bottomAnchor, constant: 10),
+            seperatorView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            seperatorView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            seperatorView.heightAnchor.constraint(equalToConstant: 2),
+            
+            tableView.topAnchor.constraint(equalTo: seperatorView.bottomAnchor, constant: 10),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             tableView.heightAnchor.constraint(equalToConstant: 150)
@@ -82,52 +102,19 @@ extension LanguageView: UITableViewDataSource {
 // MARK: - TableView Delegate Methods
 extension LanguageView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedLanguage = languages[indexPath.row].name
-        print("Selected Language: \(selectedLanguage)")
-    }
-}
-
-// MARK: - Custom Cell
-class LanguageCell: UITableViewCell {
-    private let flagImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.layer.cornerRadius = 16
-        imageView.clipsToBounds = true
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
-    
-    private let languageLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = .secondarySystemBackground
-        contentView.addSubview(flagImageView)
-        contentView.addSubview(languageLabel)
-        
-        NSLayoutConstraint.activate([
-            flagImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            flagImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            flagImageView.widthAnchor.constraint(equalToConstant: 32),
-            flagImageView.heightAnchor.constraint(equalToConstant: 32),
-            
-            languageLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            languageLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            languageLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
-        ])
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func configure(with language: Language) {
-        flagImageView.image = language.flag
-        languageLabel.text = language.name
+        switch indexPath.row {
+        case 0:
+            AppLanguageManager.shared.setAppLanguage(language: .kg)
+            delegate?.didLanguageSelect(LanguageType: .kg)
+        case 1:
+            AppLanguageManager.shared.setAppLanguage(language: .ru)
+            delegate?.didLanguageSelect(LanguageType: .ru)
+        case 2:
+            AppLanguageManager.shared.setAppLanguage(language: .en)
+            delegate?.didLanguageSelect(LanguageType: .en)
+        default:
+            ()
+        }
+        dismiss(animated: true)
     }
 }

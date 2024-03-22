@@ -11,10 +11,17 @@ import SnapKit
 protocol SettingsViewProtocol {
     func successTitles(titles: [String])
     func successImages(images: [UIImage])
+    func successCellTexts(cellTexts: [String])
+}
+
+protocol Reloadable {
+    func reloadData()
 }
 
 // MARK: - SettingsView
 class SettingsView: UIViewController {
+    
+    var selectedLanguage: LanguageType?
     
     private var controller: SettingsControllerProtocol?
     
@@ -48,6 +55,7 @@ class SettingsView: UIViewController {
         } else {
             overrideUserInterfaceStyle = .light
         }
+        navigationItem.title = "Settings".localized()
     }
 }
 
@@ -60,7 +68,6 @@ private extension SettingsView {
         controller = SettingsController(view: self)
         controller?.onGetTitles()
         controller?.onGetImages()
-        navigationItem.title = "Settings"
     }
 }
 
@@ -112,7 +119,8 @@ extension SettingsView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
             let languageView = LanguageView()
-            let multiplier = 0.25
+            languageView.delegate = self
+            let multiplier = 0.35
             let customDetent = UISheetPresentationController.Detent.custom(resolver: { context in
                 languageView.view.frame.height * multiplier
             })
@@ -136,6 +144,21 @@ extension SettingsView: SettingsViewProtocol {
         self.images = images
         settingTableView.reloadData()
     }
+    
+    func successCellTexts(cellTexts: [String]) {
+        guard let selectedLanguage = selectedLanguage else {
+            return
+        }
+        
+        for (index, text) in cellTexts.enumerated() {
+            if let cell = settingTableView.cellForRow(at: IndexPath(row: index, section: 0)) as? NoteTableViewCell {
+                cell.setup(title: text)
+                if index == 0 {
+                    cell.setupButtonTitle(title: text, language: selectedLanguage)
+                }
+            }
+        }
+    }
 }
 
 extension SettingsView: SettingsCellDelegate {
@@ -148,3 +171,15 @@ extension SettingsView: SettingsCellDelegate {
         }
     }
 }
+
+extension SettingsView: LanguageViewDelegate {
+    func didLanguageSelect(LanguageType: LanguageType) {
+        navigationItem.title = "Settings".localized()
+        selectedLanguage = LanguageType
+        controller?.onGetTitles()
+        settingTableView.reloadData()
+        controller?.onGetCellTexts()
+    }
+}
+
+

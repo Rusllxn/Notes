@@ -10,10 +10,11 @@ import UIKit
 protocol SettingsControllerProtocol {
     func onGetTitles()
     func onGetImages()
+    func onGetCellTexts()
     
     func onSuccessTitles(titles: [String])
     func onSuccessImages(images: [UIImage])
-    
+    func onSuccessCellTexts(cellTexts: [String])
 }
 
 class SettingsController: SettingsControllerProtocol {
@@ -41,4 +42,13 @@ class SettingsController: SettingsControllerProtocol {
     func onSuccessImages(images: [UIImage]) {
         view?.successImages(images: images)
     }
+    
+    func onGetCellTexts() {
+        model?.getCellTexts()
+    }
+    
+    func onSuccessCellTexts(cellTexts: [String]) {
+        view?.successCellTexts(cellTexts: cellTexts)
+    }
 }
+
