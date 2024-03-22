@@ -108,6 +108,21 @@ extension SettingsView: UITableViewDelegate, UITableViewDataSource {
         cell.setup(image: images[indexPath.row])
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 0 {
+            let languageView = LanguageView()
+            let multiplier = 0.25
+            let customDetent = UISheetPresentationController.Detent.custom(resolver: { context in
+                languageView.view.frame.height * multiplier
+            })
+            if let sheet = languageView.sheetPresentationController {
+                sheet.detents = [customDetent, .medium()]
+                sheet.prefersGrabberVisible = true
+            }
+            self.present(languageView, animated: true)
+        }
+    }
 }
 
 // MARK: - SettingsViewProtocol

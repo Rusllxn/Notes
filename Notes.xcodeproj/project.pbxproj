@@ -22,6 +22,7 @@
 		838DFD672BAC8EF2009E0D24 /* NoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838DFD662BAC8EF2009E0D24 /* NoteView.swift */; };
 		838DFD692BAC8F23009E0D24 /* NoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838DFD682BAC8F23009E0D24 /* NoteModel.swift */; };
 		838DFD6B2BAC8F92009E0D24 /* NoteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838DFD6A2BAC8F92009E0D24 /* NoteController.swift */; };
+		838DFD6E2BACA4A4009E0D24 /* LanguageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838DFD6D2BACA4A4009E0D24 /* LanguageView.swift */; };
 		839A9A782B907E5900DC3AFD /* HomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839A9A772B907E5900DC3AFD /* HomeCell.swift */; };
 		839A9A7A2B907E9A00DC3AFD /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839A9A792B907E9A00DC3AFD /* HomeController.swift */; };
 		839A9A7C2B907EAA00DC3AFD /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839A9A7B2B907EAA00DC3AFD /* HomeModel.swift */; };
@@ -49,6 +50,7 @@
 		838DFD662BAC8EF2009E0D24 /* NoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteView.swift; sourceTree = "<group>"; };
 		838DFD682BAC8F23009E0D24 /* NoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteModel.swift; sourceTree = "<group>"; };
 		838DFD6A2BAC8F92009E0D24 /* NoteController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteController.swift; sourceTree = "<group>"; };
+		838DFD6D2BACA4A4009E0D24 /* LanguageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageView.swift; sourceTree = "<group>"; };
 		839A9A772B907E5900DC3AFD /* HomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCell.swift; sourceTree = "<group>"; };
 		839A9A792B907E9A00DC3AFD /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		839A9A7B2B907EAA00DC3AFD /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
@@ -110,6 +112,14 @@
 			path = AddNote;
 			sourceTree = "<group>";
 		};
+		838DFD6C2BACA46F009E0D24 /* Language */ = {
+			isa = PBXGroup;
+			children = (
+				838DFD6D2BACA4A4009E0D24 /* LanguageView.swift */,
+			);
+			path = Language;
+			sourceTree = "<group>";
+		};
 		83E4516A2B863F680022F7A9 = {
 			isa = PBXGroup;
 			children = (
@@ -154,6 +164,7 @@
 		83E4518F2B864A4A0022F7A9 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				838DFD6C2BACA46F009E0D24 /* Language */,
 				838DFD632BAC8EB0009E0D24 /* AddNote */,
 				8306FB742B974ECA0082AAEF /* OnBoarding */,
 				83EE589A2B8E296F0041A350 /* Settings */,
@@ -268,6 +279,7 @@
 				83E451772B863F680022F7A9 /* AppDelegate.swift in Sources */,
 				838DFD672BAC8EF2009E0D24 /* NoteView.swift in Sources */,
 				8339C0772B8982470087C62A /* SettingsModel.swift in Sources */,
+				838DFD6E2BACA4A4009E0D24 /* LanguageView.swift in Sources */,
 				8306FB782B974F260082AAEF /* OnboardingView.swift in Sources */,
 				839A9A7A2B907E9A00DC3AFD /* HomeController.swift in Sources */,
 				838DFD602BAC7010009E0D24 /* OnboardingController.swift in Sources */,
@@ -350,7 +362,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -407,7 +419,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -432,7 +444,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -465,7 +477,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

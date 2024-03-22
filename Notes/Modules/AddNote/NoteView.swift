@@ -69,7 +69,7 @@ class NewNoteView: UIView {
         noteTextView.snp.makeConstraints { make in
             make.top.equalTo(noteTF.snp.bottom).offset(30)
             make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalTo(470)
+            make.height.equalTo(440)
         }
         
         addSubview(copyButton)

@@ -97,21 +97,21 @@ class OnboardingView: UIViewController {
         }
         view.addSubview(pageControl)
         pageControl.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().offset(-300)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-120)
             make.centerX.equalToSuperview()
         }
         view.addSubview(skipButton)
         skipButton.snp.makeConstraints { make in
-            make.bottom.equalTo(-130)
+            make.top.equalTo(pageControl.snp.bottom).offset(50)
             make.left.equalTo(16)
-            make.width.equalTo(175)
+            make.width.equalTo(160)
             make.height.equalTo(45)
         }
         view.addSubview(nextButton)
         nextButton.snp.makeConstraints { make in
-            make.bottom.equalTo(-130)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-25)
             make.right.equalTo(-16)
-            make.width.equalTo(175)
+            make.width.equalTo(160)
             make.height.equalTo(45)
         }
     }

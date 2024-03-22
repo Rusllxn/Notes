@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "kyrgyz_flag.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
